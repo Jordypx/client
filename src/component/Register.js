@@ -12,7 +12,7 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lasttName, setLastName] = useState("");
-  const [department, setDepartment] = useState("");
+  const [department, setDepartment] = useState("");          
   const [email, setEmail] = useState("");
 
   async function submit(e) {
