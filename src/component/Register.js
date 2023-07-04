@@ -21,7 +21,7 @@ const Register = () => {
     setIsLoading(true);
     try {
       await axios
-        .post("http://localhost:8000/signup", {
+        .post("https://mern-stack-app-api-kk7j.onrender.com/signup", {
           username,
           password,
           firstName,
