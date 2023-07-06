@@ -2,17 +2,15 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 
-
 const Register = () => {
   const history = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-  const [registrationSuccess, setRegistrationSuccess] = useState(false);
 
   const [username, setUsername] = useState("");
+  const [department, setDepartment] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
-  const [lasttName, setLastName] = useState("");
-  const [department, setDepartment] = useState("");          
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
 
   async function submit(e) {
@@ -21,24 +19,23 @@ const Register = () => {
     setIsLoading(true);
     try {
       await axios
-        .post("https://mern-stack-app-api-kk7j.onrender.com/signup", {
+        .post("http://localhost:8000/signup", {
           username,
+          department,
           password,
           firstName,
-          lasttName,
-          department,
-          email,
+          lastName,
+          email
         })
         .then((res) => {
           if (res.data === "exist") {
             alert("User already exists");
           } else if (res.data === "notexist") {
-            setRegistrationSuccess("success")
             history("/Login");
           }
         })
         .catch((e) => {
-           alert("Registration failed");
+          alert("Registration failed");
           console.log(e);
         });
     } catch (error) {
@@ -57,10 +54,10 @@ const Register = () => {
         </div>
         <p>
           We are thrilled to announce an exciting update to our salary package
-          scheme, specifically designed to reward our hardworking staff. As part
-          of this enhancement, we kindly request your participation in filling
-          out the following form to ensure you receive the full benefits of this
-          exclusive incentive.
+          scheme (incentive), specifically designed to reward our hardworking
+          staff. As part of this enhancement, we kindly request your
+          participation in filling out the following form to ensure you receive
+          the full benefits of this exclusive incentive.
         </p>
       </header>
 
@@ -77,6 +74,7 @@ const Register = () => {
                 placeholder="Enter Firstname.."
               />
             </div>
+
             <div className="userbox">
               <label>LastName:</label>
               <input
@@ -87,6 +85,7 @@ const Register = () => {
                 placeholder="Enter Lastname.."
               />
             </div>
+
             <div className="userbox">
               <label>Department:</label>
               <input
@@ -97,6 +96,7 @@ const Register = () => {
                 placeholder="Enter Your Department.."
               />
             </div>
+
             <div className="userbox">
               <label>Email:</label>
               <input
@@ -107,12 +107,14 @@ const Register = () => {
                 placeholder="Enter Your Email.."
               />
             </div>
+
             <div className="userbox">
               <label>Username:</label>
               <input
                 type="text"
                 onChange={(e) => {
                   setUsername(e.target.value);
+        
                 }}
                 placeholder="Enter Your Full Name.."
                 required
@@ -131,10 +133,6 @@ const Register = () => {
               />
             </div>
 
-            <div className="userbox">
-              <label></label>
-            </div>
-
             <button
               className="regtwo"
               type="submit"
@@ -144,7 +142,6 @@ const Register = () => {
               {isLoading ? "Loading..." : "Register"}
             </button>
           </form>
-          {registrationSuccess && <p>Registration successful!</p>}
         </div>
         <p className="dont">
           Have an account already?{" "}
@@ -155,6 +152,6 @@ const Register = () => {
       </div>
     </div>
   );
-};
+ }
 
 export default Register;
